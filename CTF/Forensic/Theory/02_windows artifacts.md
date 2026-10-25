@@ -91,6 +91,69 @@ Windows Artifacts are pieces of data, files, registry entries, or logs automatic
 * **Description & Location:** 
   Located at `C:\$Recycle.Bin`. When a file is deleted, Windows divides it into two distinct files: `$R` (containing the actual file data/content) and `$I` (containing metadata).
 
-  ---
+---
 
-## 4. Event Logs
+## 4. Windows Event Logs (.evtx)
+
+### Description
+Windows Event Logs act as the system's "black box," recording operational history across both hardware and software components. They track system state changes, user activities, security events, and application behaviors.
+
+### Forensic Significance
+* **Security & Authentication Artifacts:** Tracks successful and failed logon attempts (Logon Types, Usernames, Source IP Addresses).
+* **Execution & Software Activity:** Logs service installations, process creations, software updates, and application crashes.
+* **System State & Hardware Health:** Records system boot/shutdown timestamps, driver loadings, unexpected shutdowns, and hardware fault warnings.
+
+---
+
+### Analysis Approaches
+
+#### Approach 1: Native GUI (Event Viewer)
+* **Access Method:** Press `Win + R`, type `eventvwr.msc`, and press **Enter**.
+* **Interface Layout:**
+  1. **Left Pane (Navigation):** Categorized log folders under **Windows Logs** (`Application`, `Security`, `System`, `Setup`).
+  2. **Middle Pane (Event Listing):** Chronological list of recorded events displaying Event ID, Source, Level, and Timestamps.
+  3. **Right Pane (Actions):** Operational tools including Search, Filter Current Log, and Exporting.
+
+#### Approach 2: Direct Artifact Acquisition & Offline Analysis
+* **Artifact Location:** `C:\Windows\System32\winevt\Logs\`
+* **Forensic Workflow:** Extract raw `.evtx` files from the target machine, compress them into an archive, and transfer them to an isolated forensic workstation for analysis using specialized utilities (e.g., `EvtxECmd`, `Hayabusa`, or `Chainsaw`).
+
+---
+
+### Key Event IDs for DFIR Analysis
+
+| Event ID | Provider / Category | Description | Forensic Value |
+| :--- | :--- | :--- | :--- |
+| **1006** | Windows Defender | Malware or potentially unwanted software detected | Identifies threat detection details. |
+| **1007** | Windows Defender | Action taken to protect system from malware | Confirms mitigation success. |
+| **1015** | Windows Defender | Suspicious activity detected | Indicates potential post-exploitation activity. |
+| **1116** | Windows Defender | Malware state changed / Malware detected | Pinpoints exact malware threat name. |
+| **1117** | Windows Defender | Action taken on detected threat | Quarantined / Deleted status verification. |
+| **1100** | Event Log Service | The event logging service was shut down | Detects log tampering or service stopping. |
+| **1102** | Security Audit | The audit log was cleared | Critical indicator of anti-forensic activity. |
+| **4624** | Security / Authentication | An account was successfully logged on | Validates active sessions & logon types. |
+| **4625** | Security / Authentication | An account failed to log on | Detects brute-force / password spraying. |
+| **4634** | Security / Authentication | An account was logged off | Establishes user activity duration. |
+| **4648** | Security / Authentication | Explicit credentials were used for logon | Detects lateral movement (e.g., `runas`). |
+| **4720** | User Management | A user account was created | Identifies persistence via user creation. |
+| **4722** | User Management | A user account was enabled | Detects activation of dormant accounts. |
+| **4723** | User Management | An attempt was made to change an account password | Tracks credential modification attempts. |
+| **4724** | User Management | An attempt was made to reset an account password | Identifies administrative password resets. |
+
+---
+
+### Analysis Guidelines (Event Viewer Filtering)
+
+To effectively isolate suspicious activities or system errors from background noise:
+
+1. Open **Event Viewer** (`eventvwr.msc`) or load a saved `.evtx` log file.
+2. In the right **Actions** pane, click **Filter Current Log...**.
+3. To locate errors and critical alerts:
+   * Under **Event level**, check **Critical**, **Error**, and **Warning**.
+4. To hunt for specific threat patterns:
+   * Under **`<All Event IDs>`**, enter target Event IDs separated by commas (e.g., `4624, 4625, 4720, 1102`).
+5. Click **OK** to apply the filter view.
+
+#### Key Forensic Tools:
+* **EvtxECmd** (by Eric Zimmerman) — Parses `.evtx` files into structured CSV/JSON formats for timeline creation.
+* **Hayabusa** — Fast CLI event log parser and threat hunting tool using Sigma rules.
