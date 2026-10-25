@@ -91,7 +91,9 @@ Windows Artifacts are pieces of data, files, registry entries, or logs automatic
 * **Description & Location:** 
   Located at `C:\$Recycle.Bin`. When a file is deleted, Windows divides it into two distinct files: `$R` (containing the actual file data/content) and `$I` (containing metadata).
 
-* **Forensic Value:** 
-  Analyzing the `$I` file allows investigators to recover the original file path, file size, and exact deletion timestamp.
+  ---
+
+## 4. Event Logs
+
 
 * ** Key Forensic Tools: `RBCmd.exe` (by Eric Zimmerman) — Parses Recycle Bin `$I` and `$R` records.
