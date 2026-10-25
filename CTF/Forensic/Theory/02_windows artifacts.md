@@ -75,3 +75,23 @@ Windows Artifacts are pieces of data, files, registry entries, or logs automatic
 
   # Export results to CSV
   .\LECmd.exe -d "C:\Users\<Username>\AppData\Roaming\Microsoft\Windows\Recent" --csv "D:\Output"
+### 3.2. Jump Lists (Advanced)
+
+* **Description & Location:** 
+  Stored at `AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations`. It is an advanced form of LNK Files tied directly to specific applications.
+
+* **Forensic Value:** 
+  Reveals precisely which files were recently opened categorized by software (e.g., identifying which specific Word document was opened using MS Word).
+
+* ** Key Forensic Tools: `JLECmd.exe` (by Eric Zimmerman) — Parses Jump List destination files into structured reports.
+
+
+### 3.3. Recycle Bin ($I & $R Files - Advanced)
+
+* **Description & Location:** 
+  Located at `C:\$Recycle.Bin`. When a file is deleted, Windows divides it into two distinct files: `$R` (containing the actual file data/content) and `$I` (containing metadata).
+
+* **Forensic Value:** 
+  Analyzing the `$I` file allows investigators to recover the original file path, file size, and exact deletion timestamp.
+
+* ** Key Forensic Tools: `RBCmd.exe` (by Eric Zimmerman) — Parses Recycle Bin `$I` and `$R` records.
