@@ -1,4 +1,4 @@
-# Comprehensive Guide to Malicious Document Analysis for Digital Forensics
+# FILE ANALYSIS (Comprehensive Guide to Malicious Document Analysis for Digital Forensics)
 ## Overview
 Malicious documents (Office files, RTF, etc.) are one of the most common initial access vectors in phishing campaigns. Attackers abuse legitimate document features such as Macros, remote templates, DDE and embedded objects to execute code on the victim's machine. This guide covers the file format structures, the attack vectors, the static and dynamic analysis workflow, and the tools investigators use to dissect suspicious documents.
  
