@@ -94,6 +94,3 @@ Windows Artifacts are pieces of data, files, registry entries, or logs automatic
   ---
 
 ## 4. Event Logs
-
-
-* ** Key Forensic Tools: `RBCmd.exe` (by Eric Zimmerman) — Parses Recycle Bin `$I` and `$R` records.
