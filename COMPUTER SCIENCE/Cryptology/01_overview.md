@@ -67,7 +67,7 @@ According to standard **X.800** (an ITU-T standard defining security architectur
  
 A cryptosystem is a comprehensive framework describing the complete cycle of encrypting plaintext into ciphertext and decrypting ciphertext back into plaintext.
  
-### 6.1 Symmetric Encryption
+### 6.1 Symmetric Encryption (Private-Key Cryptography)
 * **Principle:** Sender and receiver share a single secret key for both encryption and decryption.
 * **Characteristics:** High processing speed, highly efficient for bulk data encryption.
 * **Limitations:** Presents significant challenges regarding secure secret key distribution and management across public networks.
