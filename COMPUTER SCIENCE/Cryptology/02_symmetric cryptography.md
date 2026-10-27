@@ -7,6 +7,8 @@
  
 * **Encryption:** Transforming plaintext into ciphertext.
 * **Decryption:** Reconstructing ciphertext back to its original plaintext form.
+  <img width="1275" height="201" alt="image" src="https://github.com/user-attachments/assets/d0eb2f6b-c843-4d74-8587-74af1f961294" />
+
 ---
  
 ## 2. Six Essential Criteria for a Robust Secret-Key Cryptosystem
@@ -29,6 +31,7 @@ Replaces each character (or group of characters) in the plaintext with another c
  
 * **Alphabet table:** Contains all allowable characters (e.g., the 26 English letters A–Z, indexed from `0` to `n-1`, where `n` is the total number of characters).
 * **Circular shift rule:** Adding or subtracting shift steps during substitution. If the result exceeds the table boundary, the modulo operation (`mod n`) wraps it back to the beginning of the table, so a valid substitution character is always produced without overflow.
+
 | Cipher Name | Operational Mechanism & Characteristics |
 | :--- | :--- |
 | **Caesar Cipher** | • **Principle:** Shifts each plaintext character by a fixed distance `k` in the alphabet.<br>• **Formula:** `C = (P + k) mod 26` (P: plaintext, C: ciphertext, k: shift distance).<br>• **Characteristics:** Vulnerable to brute force because there are only 25 possible keys (`k ∈ [1, 25]`). |
