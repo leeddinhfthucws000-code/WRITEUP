@@ -1,9 +1,5 @@
 # PUBLIC-KEY CRYPTOGRAPHY
  
-*Core Concepts, Mathematical Foundations, and Comparative Analysis*
- 
-> **Overview:** This document provides an academic translation and structured overview of public-key (asymmetric) cryptography, covering foundational concepts, key algorithms (RSA, ElGamal, Rabin, ECC), and a comparative evaluation with symmetric systems.
- 
 ---
  
 ## 1. Concept & Problem-Solving
