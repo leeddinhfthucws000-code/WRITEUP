@@ -61,4 +61,4 @@ Provides equivalent security levels to legacy systems like RSA while utilizing s
  
 * In real-world implementations, **public-key cryptography** is utilized to securely negotiate and exchange session keys.
 * **High-speed symmetric ciphers** (such as AES) handle the actual bulk data encryption.
-* This combines the
+* This combines the security advantages of both paradigms.
