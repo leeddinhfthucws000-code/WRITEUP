@@ -114,3 +114,113 @@ Malicious documents (Office files, RTF, etc.) are one of the most common initial
 | **rtfobj** | RTF | Extract embedded OLE objects from RTF files. |
 | **pcodedump.py** | VBA Stomped files | Recover P-Code when source code is stripped. |
 | **Procmon / Process Explorer** | Dynamic analysis | Monitor processes, registry, file, and network activity. |
+
+---
+
+# STEGANOGRAPHY 
+## Overview
+Steganography is the practice of hiding secret information (text, images, files) inside an ordinary-looking carrier file. Audio and image files are the most common carriers, and they appear frequently in digital forensics investigations and CTF (Capture The Flag) challenges. This guide covers the main techniques and the tools used to detect and extract hidden data.
+ 
+---
+## 1. Audio Steganography
+ 
+### 1.1. Technique Classification
+* **Description:** Audio Steganography hides a secret message (text, images, or files) inside a digital audio file without significantly affecting the human listening experience. It is mainly divided into two schools of thought, based on how the data is manipulated:
+  * **Spectrogram Steganography:** The frequency (pitch) and amplitude (volume) of the audio are modified over time to encode information into the soundwave. Normal listening reveals only faint static or minor background noise. When the file is loaded into analysis software (Sonic Visualiser or Audacity) and switched to Spectrogram mode, the modified frequency bands form an image or text containing the hidden message (flag).
+  * **LSB (Least Significant Bit) Steganography:** Digital audio is a stream of 0s and 1s, so the least significant bits of the audio samples can be replaced with the bits of the secret payload. The LSB has the lowest weight, so the change is imperceptible to the human ear. Visual spectrogram analysis is **ineffective** here; the payload must be extracted with dedicated command-line decoding tools (such as Steghide on Kali Linux).
+* **Forensic Value:** The technique decides the method. If the message is visible in a spectrogram, use visual analysis; if not, suspect LSB or an appended payload and move on to extraction tools.
+| Characteristic | Spectrogram Steganography | LSB Steganography |
+| :--- | :--- | :--- |
+| **Where data is hidden** | Frequency / amplitude over time | Least significant bits of audio samples |
+| **Human perception** | Faint static or background noise | Not perceptible |
+| **Detection method** | Visual (Spectrogram view) | Statistical / tool-based decoding |
+| **Typical tools** | Sonic Visualiser, Audacity | Steghide, DeepSound, SilentEye |
+ 
+### 1.2. Audio Analysis Tools Overview
+* **Description:** The most common tools for analyzing suspicious audio files:
+| Tool Name | Functionality & Usage |
+| :--- | :--- |
+| **Audacity** | Edit, play, and visualize audio; switch to Spectrogram mode to detect hidden images, text, or embedded signals within sound waves. |
+| **Sonic Visualiser** | In-depth, highly detailed spectrogram analysis, revealing complex frequency bands that standard media players cannot display. |
+| **QSSTV** | Decode image signals transmitted over audio waves (Slow-Scan Television); specialized in recovering images from strange audio tracks in CTF challenges. |
+| **Steghide** | Command-line tool to embed or extract secret payloads (text, compressed files) inside audio (or image) files using a passphrase. |
+| **HxD (Hex Editor)** | Inspect raw binary code, verify Header/Footer signatures of audio files, and identify appended files (EOF - End of File). |
+| **Baudline** | Ultra-fast time-frequency spectrum analysis, digital signal processing (DSP), and real-time spectrogram viewing. |
+| **SoX (Sound eXchange)** | Convert audio formats, apply frequency filters, and quickly analyze technical file attributes via command line. |
+| **GNU Radio** | DSP toolkit for analyzing complex waveforms, radio transmissions, and advanced audio signals. |
+| **SilentEye / DeepSound** | GUI software for rapidly hiding or extracting secret data within common audio formats such as WAV. |
+ 
+### 1.3. Audio Analysis Workflow (Kali Linux)
+* **Description:** A typical triage order for a suspicious audio file:
+```bash
+# 1. Check basic file attributes and metadata
+file sample.wav
+exiftool sample.wav
+soxi sample.wav
+ 
+# 2. Look for readable strings and appended data
+strings sample.wav | less
+binwalk sample.wav
+ 
+# 3. Generate a spectrogram image with SoX (or open in Sonic Visualiser / Audacity)
+sox sample.wav -n spectrogram -o spectrogram.png
+ 
+# 4. Try to extract an LSB / Steghide payload (a passphrase may be required)
+steghide info sample.wav
+steghide extract -sf sample.wav
+```
+* **Forensic Value:** Spectrogram review catches visual payloads, while `strings`, `binwalk`, and `steghide` cover appended files and LSB-embedded data.
+---
+## 2. Image Steganography
+ 
+### 2.1. Technique Classification
+* **Description:** Image Steganography embeds secret information directly into the pixel data of a digital image. Since altering image bits changes color values, there are two main strategies:
+  * **Invisible Bit Modification (Standard LSB):** Only modifies the least significant bits of the RGB color channels, so the tint variation is completely imperceptible to human vision.
+  * **Intentional Visual Modification:** Alters bits in fixed pixel areas to form hidden patterns or contrast bands that only become visible when contrast or color filters are boosted to maximum levels.
+* **Forensic Value:** Steganalysis (forensic analysis of images) relies on CLI tools on Linux environments such as Kali Linux. The image format decides which tool to use.
+| Image Format | Recommended Tool | Reason |
+| :--- | :--- | :--- |
+| **PNG** | `zsteg` | Lossless format preserves LSB data |
+| **JPEG** | `steghide` | Lossy compression destroys plain LSB data |
+| **Any** | `exiftool` | Checks metadata outside the pixel data |
+ 
+### 2.2. Image Analysis Tools (Kali Linux)
+* **PNG Format (zsteg):** A Ruby-based tool that automatically scans all color planes and LSB bit positions, extracting hidden strings and data directly to the terminal.
+```bash
+sudo gem install zsteg
+zsteg -a image.png
+```
+* **JPEG Format (steghide):** JPEG compression is lossy and degrades plain LSB data, so `steghide` is used to embed and extract secret payloads based on graph-theory value-swapping algorithms.
+```bash
+sudo apt install steghide
+steghide info image.jpg
+steghide extract -sf image.jpg
+```
+* **Metadata Analysis (exiftool):** A standard utility to inspect file headers and metadata tags (such as `Comment`, `Artist`, or `Description`) and check whether secret flags are stored in plain text outside the pixel data.
+```bash
+exiftool image.png
+```
+ 
+### 2.3. Additional Checks
+* **Description:** Quick checks that complement the tools above:
+```bash
+# Look for readable strings and files appended after the image end marker
+strings image.png | less
+binwalk image.png
+ 
+# Inspect raw bytes and header / footer signatures
+xxd image.png | head
+```
+* **Forensic Value:** Mismatched headers/footers or extra data after the end-of-file marker often indicate an appended payload.
+---
+## 3. Summary
+ 
+| Carrier | Technique | Detection / Extraction |
+| :--- | :--- | :--- |
+| **Audio** | Spectrogram | Sonic Visualiser, Audacity (Spectrogram mode) |
+| **Audio** | LSB | Steghide, DeepSound, SilentEye |
+| **Audio** | Slow-Scan TV signal | QSSTV |
+| **Image (PNG)** | LSB | `zsteg` |
+| **Image (JPEG)** | Value swapping | `steghide` |
+| **Image (any)** | Metadata | `exiftool` |
+ 
