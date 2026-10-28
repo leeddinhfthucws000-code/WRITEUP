@@ -129,6 +129,7 @@ Steganography is the practice of hiding secret information (text, images, files)
   * **Spectrogram Steganography:** The frequency (pitch) and amplitude (volume) of the audio are modified over time to encode information into the soundwave. Normal listening reveals only faint static or minor background noise. When the file is loaded into analysis software (Sonic Visualiser or Audacity) and switched to Spectrogram mode, the modified frequency bands form an image or text containing the hidden message (flag).
   * **LSB (Least Significant Bit) Steganography:** Digital audio is a stream of 0s and 1s, so the least significant bits of the audio samples can be replaced with the bits of the secret payload. The LSB has the lowest weight, so the change is imperceptible to the human ear. Visual spectrogram analysis is **ineffective** here; the payload must be extracted with dedicated command-line decoding tools (such as Steghide on Kali Linux).
 * **Forensic Value:** The technique decides the method. If the message is visible in a spectrogram, use visual analysis; if not, suspect LSB or an appended payload and move on to extraction tools.
+
 | Characteristic | Spectrogram Steganography | LSB Steganography |
 | :--- | :--- | :--- |
 | **Where data is hidden** | Frequency / amplitude over time | Least significant bits of audio samples |
@@ -138,6 +139,7 @@ Steganography is the practice of hiding secret information (text, images, files)
  
 ### 1.2. Audio Analysis Tools Overview
 * **Description:** The most common tools for analyzing suspicious audio files:
+
 | Tool Name | Functionality & Usage |
 | :--- | :--- |
 | **Audacity** | Edit, play, and visualize audio; switch to Spectrogram mode to detect hidden images, text, or embedded signals within sound waves. |
@@ -178,6 +180,7 @@ steghide extract -sf sample.wav
   * **Invisible Bit Modification (Standard LSB):** Only modifies the least significant bits of the RGB color channels, so the tint variation is completely imperceptible to human vision.
   * **Intentional Visual Modification:** Alters bits in fixed pixel areas to form hidden patterns or contrast bands that only become visible when contrast or color filters are boosted to maximum levels.
 * **Forensic Value:** Steganalysis (forensic analysis of images) relies on CLI tools on Linux environments such as Kali Linux. The image format decides which tool to use.
+
 | Image Format | Recommended Tool | Reason |
 | :--- | :--- | :--- |
 | **PNG** | `zsteg` | Lossless format preserves LSB data |
