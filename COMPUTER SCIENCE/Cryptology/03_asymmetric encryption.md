@@ -27,6 +27,7 @@ Recognized as one of the earliest and most foundational public-key cryptosystems
   * Compute ciphertext `C` using public key `(e, n)`: `C = M^e mod n`
 * **Decryption:**
   * Recover original plaintext `M` using private exponent `d`: `M = C^d mod n`
+
 | Phase | Formula |
 | :--- | :--- |
 | **Key Generation** | `n = p × q`, `φ(n) = (p - 1)(q - 1)`, `d × e ≡ 1 (mod φ(n))` |
