@@ -1,35 +1,37 @@
-# Problem
+# Key Distribution and Agreement
+
+## Problem
  
 The core challenge presented throughout this chapter is key management in communication networks, as encryption is only truly secure when keys are kept confidential and exchanged with the correct entities. When the network scale expands to $n$ users, the number of keys required to secure each pair of communications increases quadratically according to $n(n-1)/2$, making manual management completely infeasible for large-scale systems. Additionally, key distribution or agreement over public network channels always carries the risk of eavesdropping or spoofing attacks, requiring effective technical solutions such as the Blom scheme, the Diffie-Hellman protocol, or centralized key distribution via a KDC.
  
-# Solutions and Key Management Approaches
+## Solutions and Key Management Approaches
  
-## Blom Scheme
+### Blom Scheme
  
 The center distributes a pre-calculated piece of private information to each user. Any two users can independently compute a shared key without needing to exchange secret information over the network. The system is capable of withstanding a limited number of colluding malicious users.
  
-## Diffie-Hellman Protocol
+### Diffie-Hellman Protocol
  
 Enables two parties to agree and establish a shared secret key over a public network channel (where eavesdroppers are present) without transmitting the actual key directly across the network. This shared key is subsequently used as a session key to encrypt actual transmitted data.
  
-### Operating Principles
+#### Operating Principles
  
 - **Public Exchange:** Both parties exchange public values back and forth across the network medium.
 - **Mixing Private Secrets:** Each party independently "mixes" their own private secret (known only to themselves) into the received value.
 - **Deriving the Shared Key:** Due to special mathematical properties, both parties ultimately compute the exact same shared key.
-### Core Vulnerabilities
+#### Core Vulnerabilities
  
 - **Lack of Authentication:** The pure protocol only facilitates key generation without verifying the true identity of the communicating party.
 - **Vulnerability to Man-in-the-Middle (MitM) Attacks:** An attacker can position themselves in the middle of the communication path, negotiating a separate key with Alice and another with Bob. Consequently, the attacker can eavesdrop and arbitrarily modify messages back and forth without either party being aware.
-### Remediation
+#### Remediation
  
 Digital signatures or certificates (CA).
  
-## Kerberos
+### Kerberos
  
 Kerberos is a practical protocol embodying the theoretical model of a trusted third-party Key Distribution Center (KDC) responsible for managing keys and issuing session keys within a network (widely implemented in Windows Active Directory enterprise environments). This model minimizes the total number of keys and ensures that passwords are never transmitted over the network. However, its fatal flaw is that the KDC becomes a Single Point of Failure: if the KDC server crashes or is compromised by an attacker, the entire network system becomes paralyzed.
  
-# Comparison between KDC and PKI
+## Comparison between KDC and PKI
  
 | Comparison Criteria                 | KDC Model (e.g., Kerberos)                                                                                                                      | Public Key Infrastructure (Asymmetric / PKI)                                                                                                                                                                                                                  |
 |-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
