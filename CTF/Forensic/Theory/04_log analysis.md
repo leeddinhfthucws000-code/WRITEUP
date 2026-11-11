@@ -34,6 +34,7 @@ Logs (system log records) are real-time records capturing all activities, events
 ### 2.1. Windows Event Logs (.EVTX)
  
 * **Description:** Windows manages system events in binary `.EVTX` format. The most critical Event IDs include:
+
 | **Event ID** | **Event Name** | **Significance & Investigation Focus** |
 |:---|:---|:---|
 | 4624 | Successful Logon | Successful authentication. Inspect Logon Type:<br>• Type 2: Interactive (Keyboard/Local)<br>• Type 3: Network (SMB/Pass-the-Hash)<br>• Type 10: RemoteInteractive (RDP) |
