@@ -32,6 +32,5 @@ FLAG: spooky{the_reflection_never_lies}
 
 ___
 
-## Conclusion & Personal Note
 This is a basic-level Steganography challenge. Mastering a few fundamental file analysis and steganography commands is more than enough to solve it.
 However, the reason I wanted to document this writeup isn't because of its technical difficulty. Eisoptrophobia was the very first challenge I successfully solved upon entering my first official CTF competition. Although it didn't require complex techniques, this lab holds a special meaning for me — serving as a milestone that marks the beginning of my cybersecurity journey. Looking back in the future, this will stand as a reminder that I once started from humble, foundational steps like these.
