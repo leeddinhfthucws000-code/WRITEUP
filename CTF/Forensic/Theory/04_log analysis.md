@@ -1,5 +1,4 @@
-# COMPREHENSIVE LOG ANALYSIS HANDBOOK (Overview Knowledge, Detailed Investigation Techniques, and Hands-on SOC/DFIR Guide)
- 
+# COMPREHENSIVE LOG ANALYSIS HANDBOOK 
 ## Overview
  
 Logs (system log records) are real-time records capturing all activities, events, transactions, and states occurring across operating systems, applications, network devices, or firewalls. In Security Operations Center (SOC) monitoring, Digital Forensics, and Incident Response (DFIR), logs serve as the "black box" recording the complete digital footprint left behind by users, processes, or attackers.
