@@ -23,6 +23,7 @@ Since this is a steganography challenge, we proceed by using zsteg to see if the
 
 The scan results reveal a suspicious Base64-encoded string extracted from the b1,rgb,lsb,xy color channel:
 c3Bvbmt5e3RoZV9yZWZsZWN0aW9uX25ldmVyX2xpZXN9
+
 Next, decode this extracted string using CyberChef to check the output:
 <img width="956" height="762" alt="Ảnh chụp màn hình 2026-11-11 142313" src="https://github.com/user-attachments/assets/4d948351-2b3d-435f-a9ed-e806fd4c8d42" />
 
