@@ -11,7 +11,7 @@ First, download the image to your machine and open it up.
 Examine the image carefully and read the provided challenge description to catch any obvious visual clues.
 
 The description mentions: "investigate the image, and uncover what lies beneath the surface." This clearly indicates that the challenge belongs to the Steganography category.
-## Technical Walkthrough
+
 We will now dig deeper into the image. First, let's inspect the image file's metadata using ExifTool:
 
 <img width="812" height="422" alt="Ảnh chụp màn hình 2026-11-11 141933" src="https://github.com/user-attachments/assets/fa175cfa-9ef6-4641-a3f8-3649bd225cfe" />
