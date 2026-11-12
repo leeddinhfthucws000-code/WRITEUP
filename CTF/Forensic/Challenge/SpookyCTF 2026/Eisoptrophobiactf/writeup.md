@@ -1,6 +1,6 @@
 # Author: Makuta A   
 # Category: Forensics
-#Easy
+# Easy
 
 ___
 
