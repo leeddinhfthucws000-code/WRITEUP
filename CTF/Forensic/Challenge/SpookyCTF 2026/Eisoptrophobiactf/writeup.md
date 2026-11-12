@@ -4,7 +4,6 @@
 
 ___
 
-## Challenge Overview
 First, download the image to your machine and open it up.
 
 <img width="665" height="1140" alt="Eisoptrophobiactf" src="https://github.com/user-attachments/assets/33181a9f-3b1e-4d24-b66a-aaef088a0ae2" />
