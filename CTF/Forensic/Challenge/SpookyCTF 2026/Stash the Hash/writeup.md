@@ -37,3 +37,6 @@ With exiftool, we don't find anything noteworthy. However, with zsteg, we spot t
 Reviewing all the results analyzed by the tool, we find the flag hidden in the Red color channel:
 
 <img width="1696" height="891" alt="Ảnh chụp màn hình 2026-11-12 224114" src="https://github.com/user-attachments/assets/439b2108-d049-4a73-8c72-406ba2c6773a" />
+
+___
+
