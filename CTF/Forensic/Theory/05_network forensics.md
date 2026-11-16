@@ -76,6 +76,8 @@ Network traffic analysis has many approaches, but the most common and useful ope
 #### c. Packet Details and Hexadecimal View
 
 * **Description:** The Wireshark interface is divided into three main panes:
+  <img width="1917" height="1018" alt="image" src="https://github.com/user-attachments/assets/0109d14a-59d5-4d63-b2c9-d6200a6559ba" />
+
   * **Top pane (Packet List):** a list of packets, color-coded according to rules (e.g., TCP often has its own color).
   * **Middle pane (Packet Details):** detailed breakdown of each protocol layer of the selected packet.
   * **Bottom pane (Packet Bytes):** raw data in hexadecimal (hex) and ASCII format.
