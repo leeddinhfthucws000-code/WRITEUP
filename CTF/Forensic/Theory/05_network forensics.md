@@ -1,4 +1,4 @@
-# NETWORK Forensics
+# NETWORK FORENSICS
 
 ## Overview
 
