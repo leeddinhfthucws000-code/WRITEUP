@@ -1,4 +1,4 @@
-# Author: Prince Niyonshuti N.
+# Author: Prince Niyonshuti N
 # Category: Forensics
 # Easy
 
