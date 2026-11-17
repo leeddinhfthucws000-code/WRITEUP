@@ -1,4 +1,4 @@
-# Author: Prince Niyonshuti N.
+# Author: LT'syreal'Jones
 # Category: Forensics
 # Medium
 
